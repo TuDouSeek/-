@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    
+    <script>
+        //几乎每种编程语言中都有集合
+        //集合常见的实现方式用哈希表，
+        //集合通常表示结构中的元素是不允许重复的
+        
+        //学习集合，还是和之前一样，封装一个集合类
+            //2011年6月份发布的ES5中已经包含了Array类
+            //2015年6月份发布的ES6中包含了Set类，所有其实我们可以不封装，直接使用它，
+            //但是这里，为了明确集合的内部实现机制，我们这里还是自己来封装一下这个Set。
+
+        
+            function Set() {
+                //属性
+                this.items = {}
+
+                
+                //方法
+
+                //has方法判断当中是否有这个元素
+                Set.prototype.has = value =>{
+                    return this.items.hasOwnProperty(value)
+                }
+                    //add放法
+                Set.prototype.add = value => {
+                    //判断集合中是否包含当前元素
+                    if (this.has(value)) {
+                        return false
+                    }
+                    //向一个集合添加一个新的项
+                    this.items[value] = value   //表示这个键和值都是这个
+                    return true
+                }
+                
+                //remove方法
+                Set.prototype.remove = function(value){
+                    //1,判断集合中是否包含当前元素
+                    if(!this.has(value)){
+                        return false
+                    }
+                    delete this.items[value]
+                    return true
+                }
+                //clear方法
+                Set.prototype.clear = function () {
+                    this.items = {}
+
+                }
+                //size方法
+                Set.prototype.size = () =>{
+                    return Object.keys(this.items).length
+                }
+                //获取集合中所有的值
+                Set.prototype.values = () =>{
+                    return Object.keys(this.items)
+                }
+            }
+
+            var set = new Set()
+            set.add("1")
+            set.add("2")
+            set.add("3")
+            set.add("1")
+            alert(set.values())
+            alert(set.remove("2"))      //删除集合中的2
+            alert(set.values())
+
+            alert(set.has("5"))
+            //获取元素中的个数
+            alert(set.size())
+    </script>
+</body>
+</html>
